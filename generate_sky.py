@@ -56,19 +56,7 @@ def generate_night_sky(latitude, longitude, date_str=None, output_file="night_sk
     if date_str:
         from datetime import datetime, timezone
 
-        # Parsing manuel pour compatibilité maximale
-        try:
-            clean_date = date_str.replace("Z", "").split(".")[
-                0
-            ]  # On enlève Z et microsecondes
-            dt = datetime.strptime(clean_date, "%Y-%m-%dT%H:%M:%S")
-            t = ts.from_datetime(dt.replace(tzinfo=timezone.utc))
-        except ValueError:
-            t = ts.from_datetime(datetime.now(timezone.utc))
-    else:
-        from datetime import datetime, timezone
-
-        t = ts.from_datetime(datetime.now(timezone.utc))
+        t = ts.from_datetime(date_str)
 
     observer = eph["earth"] + wgs84.latlon(latitude, longitude)
     obs_at_t = observer.at(t)
