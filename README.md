@@ -21,7 +21,11 @@ A Python project to generate realistic night sky maps.
 
 3. Download the Hipparcos star catalog:
    ```bash
-   curl -O https://cdsarc.cds.unistra.fr/ftp/cats/I/239/hip_main.dat.gz
+   # Use -L to follow redirects (essential for CDS servers)
+   curl -L -o hip_main.dat.gz https://cdsarc.cds.unistra.fr/ftp/cats/I/239/hip_main.dat.gz
+   # Alternative if the above fails:
+   # curl -L -o hip_main.dat.gz https://vizier.cfa.harvard.edu/viz-bin/nph-Cat?I/239/hip_main.dat.gz
+   
    gunzip hip_main.dat.gz
    ```
 
