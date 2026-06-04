@@ -18,4 +18,8 @@ six==1.17.0
 skyfield==1.54
 tzdata==2026.2
 zipp==3.23.1
-streamlit==1.23.1
+flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+itsdangerous==2.1.2
+click==8.1.7

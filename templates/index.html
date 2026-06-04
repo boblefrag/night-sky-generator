@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Night Sky Generator</title>
+    <style>
+        body { font-family: sans-serif; background: #050a14; color: white; text-align: center; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: #0a1528; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        h1 { color: #4a90e2; }
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; text-align: left; }
+        .full-width { grid-column: 1 / -1; }
+        input, button { padding: 10px; border-radius: 5px; border: none; }
+        button { background: #4a90e2; color: white; font-weight: bold; cursor: pointer; }
+        button:hover { background: #357abd; }
+        img { max-width: 100%; height: auto; border-radius: 10px; margin-top: 20px; background: white; }
+        label { font-size: 0.9em; color: #8a9ab0; }
+        .error { color: #ff6b6b; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌌 Night Sky Generator</h1>
+        <form method="POST">
+            <div>
+                <label>Latitude</label><br>
+                <input type="number" step="0.0001" name="lat" value="{{ lat }}">
+            </div>
+            <div>
+                <label>Longitude</label><br>
+                <input type="number" step="0.0001" name="lon" value="{{ lon }}">
+            </div>
+            <div>
+                <label>Date</label><br>
+                <input type="date" name="date" value="{{ date }}">
+            </div>
+            <div>
+                <label>Heure (UTC)</label><br>
+                <input type="time" name="time" value="{{ time }}">
+            </div>
+            <button type="submit" class="full-width">Générer la carte</button>
+        </form>
+
+        {% if error %}
+            <p class="error">Erreur : {{ error }}</p>
+        {% endif %}
+
+        {% if image_url %}
+            <div class="result">
+                <h2>Votre ciel :</h2>
+                <img src="{{ image_url }}" alt="Carte du ciel">
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
