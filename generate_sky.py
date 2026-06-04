@@ -129,7 +129,7 @@ def generate_night_sky(latitude, longitude, date_str=None, output_file="night_sk
 
         if indices:
             const_stars = Star(
-                ra_hours=stars_data["ra"][indices] / 15.0,git pus
+                ra_hours=stars_data["ra"][indices] / 15.0,
                 dec_degrees=stars_data["dec"][indices],
             )
             alt_c, az_c, _ = obs_at_t.observe(const_stars).apparent().altaz()
