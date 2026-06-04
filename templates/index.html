@@ -202,8 +202,8 @@
                 <input type="date" id="date" name="date" value="{{ date }}">
             </div>
             <div class="form-group">
-                <label for="time">Heure (Paris)</label>
-                <input type="time" id="time" name="time" value="{{ time }}">
+              <label for="time">Heure (Paris)</label>
+	      <input type="time" id="time" name="time" step="60" value="{{ time }}">
             </div>
             <button type="submit" class="full-width">Générer la carte</button>
         </form>
