@@ -19,6 +19,12 @@ A Python project to generate realistic night sky maps.
    pip install -r requirements.txt
    ```
 
+3. Download the Hipparcos star catalog:
+   ```bash
+   curl -O https://cdsarc.cds.unistra.fr/ftp/cats/I/239/hip_main.dat.gz
+   gunzip hip_main.dat.gz
+   ```
+
 ## Usage
 
 Run the main script to generate a new night sky:
@@ -31,5 +37,5 @@ python generate_sky.py
 - `generate_sky.py`: Main generation script.
 - `night_sky.png`: Latest generated sky map.
 - `constellations.json`, `constellations.npz`, `constellationship.fab`: Constellation data.
-- `hip_main.dat`: Star catalog data.
+- `hip_main.dat`: Star catalog data (Hipparcos). **(Manual download required)**
 - `de421.bsp`: Ephemeris data for celestial bodies.
