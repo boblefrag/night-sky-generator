@@ -3,52 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Night Sky Generator</title>
+    <title>Stellaris - Night Sky Generator</title>
     <style>
-        body { font-family: sans-serif; background: #050a14; color: white; text-align: center; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: #0a1528; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        h1 { color: #4a90e2; }
-        form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; text-align: left; }
-        .full-width { grid-column: 1 / -1; }
-        input, button { padding: 10px; border-radius: 5px; border: none; }
-        button { background: #4a90e2; color: white; font-weight: bold; cursor: pointer; }
-        button:hover { background: #357abd; }
-        img { max-width: 100%; height: auto; border-radius: 10px; margin-top: 20px; background: white; }
-        label { font-size: 0.9em; color: #8a9ab0; }
-        .error { color: #ff6b6b; margin-top: 10px; }
+        :root {
+            --bg-space: #030712;
+            --panel-bg: #0b1329;
+            --accent-blue: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1e293b;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--bg-space); 
+            color: var(--text-main); 
+            text-align: center; 
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .container { 
+            max-width: 750px; 
+            margin: auto; 
+            background: var(--panel-bg); 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 { 
+            color: var(--text-main); 
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        form { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            margin-bottom: 20px; 
+            text-align: left; 
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .full-width { 
+            grid-column: 1 / -1; 
+        }
+
+        label { 
+            font-size: 0.85rem; 
+            font-weight: 600;
+            color: var(--text-muted); 
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input { 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 1px solid var(--border-color); 
+            background: #111827;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        button { 
+            padding: 14px; 
+            border-radius: 8px; 
+            border: none;
+            background: var(--accent-blue); 
+            color: white; 
+            font-weight: bold; 
+            font-size: 1rem;
+            cursor: pointer; 
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover { 
+            background: var(--accent-hover); 
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-print {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
+        }
+        
+        .btn-print:hover {
+            background: #334155;
+        }
+
+        .result {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .result h2 {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .img-wrapper {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        img { 
+            max-width: 100%; 
+            height: auto; 
+            display: block;
+        }
+
+        .error { 
+            color: #ef4444; 
+            background: #451a1a;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px; 
+            border: 1px solid #7f1d1d;
+            font-size: 0.9rem;
+        }
+
+        /* 🌌 CONFIGURATION POUR L'IMPRESSION (MODE TERRAIN) */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            h1, form, .error, .btn-print, .result h2 {
+                display: none !important; /* Cache tout le reste */
+            }
+            .result {
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+            }
+            .img-wrapper {
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+            img {
+                max-width: 100vw !important;
+                max-height: 100vh !important;
+                object-fit: contain;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🌌 Night Sky Generator</h1>
+        
         <form method="POST">
-            <div>
-                <label>Latitude</label><br>
-                <input type="number" step="0.0001" name="lat" value="{{ lat }}">
+            <div class="form-group">
+                <label for="lat">Latitude</label>
+                <input type="number" id="lat" step="0.0001" name="lat" value="{{ lat }}">
             </div>
-            <div>
-                <label>Longitude</label><br>
-                <input type="number" step="0.0001" name="lon" value="{{ lon }}">
+            <div class="form-group">
+                <label for="lon">Longitude</label>
+                <input type="number" id="lon" step="0.0001" name="lon" value="{{ lon }}">
             </div>
-            <div>
-                <label>Date</label><br>
-                <input type="date" name="date" value="{{ date }}">
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" value="{{ date }}">
             </div>
-            <div>
-                <label>Heure (UTC)</label><br>
-                <input type="time" name="time" value="{{ time }}">
+            <div class="form-group">
+                <label for="time">Heure (Paris)</label>
+                <input type="time" id="time" name="time" value="{{ time }}">
             </div>
             <button type="submit" class="full-width">Générer la carte</button>
         </form>
 
         {% if error %}
-            <p class="error">Erreur : {{ error }}</p>
+            <p class="error"><strong>Erreur :</strong> {{ error }}</p>
         {% endif %}
 
         {% if image_url %}
             <div class="result">
-                <h2>Votre ciel :</h2>
-                <img src="{{ image_url }}" alt="Carte du ciel">
+                <h2>Votre carte du ciel :</h2>
+                <div class="img-wrapper">
+                    <img src="{{ image_url }}" alt="Carte du ciel">
+                </div>
+                <br>
+                <button type="button" class="btn-print full-width" onclick="window.print()">🖨️ Imprimer pour le terrain</button>
             </div>
         {% endif %}
     </div>
