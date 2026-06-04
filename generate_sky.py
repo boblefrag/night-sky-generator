@@ -188,12 +188,12 @@ def generate_night_sky(latitude, longitude, date_str=None, output_file="night_sk
 
     # Style
     ax.set_theta_zero_location("N")
-    ax.set_theta_direction(-1)
+    ax.set_theta_direction(1)
     ax.set_ylim(0, 90)
     ax.set_yticklabels([])
     ax.set_xticks(np.deg2rad([0, 90, 180, 270]))
     ax.set_xticklabels(
-        ["NORD", "OUEST", "SUD", "EST"], color="black", fontsize=14, fontweight="bold"
+        ["NORD", "EST", "SUD", "OUEST"], color="black", fontsize=14, fontweight="bold"
     )
     ax.grid(color="black", alpha=0.1, linestyle=":")
     ax.spines["polar"].set_visible(False)
