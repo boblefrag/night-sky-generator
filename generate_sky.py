@@ -129,7 +129,7 @@ def generate_night_sky(latitude, longitude, date_str=None, output_file="night_sk
 
         if indices:
             const_stars = Star(
-                ra_hours=stars_data["ra"][indices] / 15.0,
+                ra_hours=stars_data["ra"][indices] / 15.0,git pus
                 dec_degrees=stars_data["dec"][indices],
             )
             alt_c, az_c, _ = obs_at_t.observe(const_stars).apparent().altaz()
@@ -188,7 +188,7 @@ def generate_night_sky(latitude, longitude, date_str=None, output_file="night_sk
 
     # Style
     ax.set_theta_zero_location("N")
-    ax.set_theta_direction(1)
+    ax.set_theta_direction(-1)
     ax.set_ylim(0, 90)
     ax.set_yticklabels([])
     ax.set_xticks(np.deg2rad([0, 90, 180, 270]))
