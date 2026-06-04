@@ -23,10 +23,16 @@ def load_hipparcos_manual(filename, mag_limit=5.0):
                 if not mag_str: continue
                 mag = float(mag_str)
                 if mag <= mag_limit:
-                    hip_ids.append(int(parts[1].strip()))
+                    # On extrait tout d'abord pour être sûr que ça ne crash pas au milieu
+                    hip_id = int(parts[1].strip())
+                    ra = float(parts[8].strip())
+                    dec = float(parts[9].strip())
+                    
+                    # On n'ajoute que si tout est passé
+                    hip_ids.append(hip_id)
                     magnitudes.append(mag)
-                    ra_degrees.append(float(parts[8].strip()))
-                    dec_degrees.append(float(parts[9].strip()))
+                    ra_degrees.append(ra)
+                    dec_degrees.append(dec)
             except (ValueError, IndexError):
                 continue
                 
