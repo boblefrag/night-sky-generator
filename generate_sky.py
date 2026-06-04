@@ -45,7 +45,14 @@ def generate_night_sky(latitude, longitude, date_str=None, output_file='night_sk
     stars_data = load_hipparcos_manual('hip_main.dat', mag_limit=6.5)
     
     if date_str:
-        t = ts.from_iso8601(date_str)
+        from datetime import datetime, timezone
+        # Parsing manuel pour compatibilité maximale
+        try:
+            clean_date = date_str.replace('Z', '').split('.')[0] # On enlève Z et microsecondes
+            dt = datetime.strptime(clean_date, '%Y-%m-%dT%H:%M:%S')
+            t = ts.from_datetime(dt.replace(tzinfo=timezone.utc))
+        except ValueError:
+            t = ts.from_datetime(datetime.now(timezone.utc))
     else:
         from datetime import datetime, timezone
         t = ts.from_datetime(datetime.now(timezone.utc))
